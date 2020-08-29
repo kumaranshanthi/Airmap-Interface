@@ -4,7 +4,8 @@ password = "Chaos_theory1234"
 
 #Mav command python3 mavproxy.py --master tcp:127.0.0.1:5760 --sitl 127.0.0.1:5501 --out 127.0.0.1:14550 --out telemetry.airmap.com:16060
 if __name__ == '__main__':
-    #API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHxMUU5vbExMaEFheTI0UklxR0pkd0Vmb1g0Z0pxIiwiYXBwbGljYXRpb25faWQiOiJhcHBsaWNhdGlvbnw5RTNYd2F2dDh5cXBKd2hFeVBQTXB1TXh4MlJBIiwib3JnYW5pemF0aW9uX2lkIjoiZGV2ZWxvcGVyfFh6R01YbEpJOXptbUJEZndwNmFLUElsUTkyM2QiLCJpYXQiOjE1OTY2OTY0NDB9.7wsWdRI4g8y1BZ8OBc-Lniz3zO90dzfMKtqifWYKQkk"
+    # API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHxMUU5vbExMaEFheTI0UklxR0pkd0Vmb1g0Z0pxIiwiYXBwbGljYXRpb25faWQiOiJhcHBsaWNhdGlvbnw5RTNYd2F2dDh5cXBKd2hFeVBQTXB1TXh4MlJBIiwib3JnYW5pemF0aW9uX2lkIjoiZGV2ZWxvcGVyfFh6R01YbEpJOXptbUJEZndwNmFLUElsUTkyM2QiLCJpYXQiOjE1OTY2OTY0NDB9.7wsWdRI4g8y1BZ8OBc-Lniz3zO90dzfMKtqifWYKQkk"
+    # eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHxMUU5vbExMaEFheTI0UklxR0pkd0Vmb1g0Z0pxIiwiYXBwbGljYXRpb25faWQiOiJhcHBsaWNhdGlvbnw5RTNYd2F2dDh5cXBKd2hFeVBQTXB1TXh4MlJBIiwib3JnYW5pemF0aW9uX2lkIjoiZGV2ZWxvcGVyfFh6R01YbEpJOXptbUJEZndwNmFLUElsUTkyM2QiLCJpYXQiOjE1OTY2OTY0NDB9.7wsWdRI4g8y1BZ8OBc-Lniz3zO90dzfMKtqifWYKQkk
     API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHxwQUFNWlBxaEx2T2Q2cGZSR2JkMlhDQkdRcTdNIiwiYXBwbGljYXRpb25faWQiOiJhcHBsaWNhdGlvbnx3ZURHZ01oTldtek55c1A4S0xEdlRsQW5QTE0iLCJvcmdhbml6YXRpb25faWQiOiJkZXZlbG9wZXJ8MnpvYmI3eWh4ZVk0cWtDM1BSeDBaSEtNejIzOCIsImlhdCI6MTQ3MTM3OTc0Mn0.MeO0jt6holPt0jdPJvRJrTBi380WsbOPGCEO6u-tfSo"
     client_id = "87b7374e-5a0c-497a-96a0-37393f649fef"
     
@@ -47,9 +48,9 @@ if __name__ == '__main__':
         "takeoff_longitude": 80.23194444,
         "pilot_id": pilot_id,
         "aircraft_id": aircraft_id,
-        "start_time": "2020-08-20T20:43:44.730Z",
-        "end_time":   "2020-08-20T20:50:42.000Z",
-        "max_altitude_agl": 100,
+        "start_time": "2020-08-29T10:43:44.730Z",
+        "end_time":   "2020-08-29T11:50:42.000Z",
+        "max_altitude_agl": 90,
         "rulesets":["ind_airmap_rules",
                     "ind_notam"],
         "buffer": 1,
