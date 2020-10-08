@@ -1,12 +1,13 @@
 from methods import *
 import numpy as np
-import cv2
 import math
 from time import sleep
-from dronekit import connect, VehicleMode
+from dronekit import connect, VehicleMode, Command
+from datetime import datetime, timedelta
+import argparse  
 
-username = "rnanthak13@gmail.com"
-password = "Chaos_theory1234"
+username = "kumaranshanthi13@gmail.com"
+password = "Dskumaran@1995"
 
 # Instruction
 # 1. Run dronekit-sitl copter --home=13.44166667,80.23194444,0,0
@@ -16,14 +17,28 @@ password = "Chaos_theory1234"
 
 # Mav command: python3 mavproxy.py --master tcp:127.0.0.1:5760 --out=127.0.0.1:14550 --out=127.0.0.1:14551
 vehicle = connect('127.0.0.1:14551',heartbeat_timeout=30)
+
+
+
+
 def getTimestamp():
     d = datetime.now()
     return int(d.microsecond / 1000 + time.mktime(d.timetuple()) * 1000)
 if __name__ == '__main__':
-    # API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHxMUU5vbExMaEFheTI0UklxR0pkd0Vmb1g0Z0pxIiwiYXBwbGljYXRpb25faWQiOiJhcHBsaWNhdGlvbnw5RTNYd2F2dDh5cXBKd2hFeVBQTXB1TXh4MlJBIiwib3JnYW5pemF0aW9uX2lkIjoiZGV2ZWxvcGVyfFh6R01YbEpJOXptbUJEZndwNmFLUElsUTkyM2QiLCJpYXQiOjE1OTY2OTY0NDB9.7wsWdRI4g8y1BZ8OBc-Lniz3zO90dzfMKtqifWYKQkk"
-    # eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHxMUU5vbExMaEFheTI0UklxR0pkd0Vmb1g0Z0pxIiwiYXBwbGljYXRpb25faWQiOiJhcHBsaWNhdGlvbnw5RTNYd2F2dDh5cXBKd2hFeVBQTXB1TXh4MlJBIiwib3JnYW5pemF0aW9uX2lkIjoiZGV2ZWxvcGVyfFh6R01YbEpJOXptbUJEZndwNmFLUElsUTkyM2QiLCJpYXQiOjE1OTY2OTY0NDB9.7wsWdRI4g8y1BZ8OBc-Lniz3zO90dzfMKtqifWYKQkk
-    API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHxwQUFNWlBxaEx2T2Q2cGZSR2JkMlhDQkdRcTdNIiwiYXBwbGljYXRpb25faWQiOiJhcHBsaWNhdGlvbnx3ZURHZ01oTldtek55c1A4S0xEdlRsQW5QTE0iLCJvcmdhbml6YXRpb25faWQiOiJkZXZlbG9wZXJ8MnpvYmI3eWh4ZVk0cWtDM1BSeDBaSEtNejIzOCIsImlhdCI6MTQ3MTM3OTc0Mn0.MeO0jt6holPt0jdPJvRJrTBi380WsbOPGCEO6u-tfSo"
-    client_id = "87b7374e-5a0c-497a-96a0-37393f649fef"
+
+    parser = argparse.ArgumentParser(description='Print out vehicle state information. Connects to SITL on local PC by default.')
+    parser.add_argument('--H', 
+                   help="vehicle connection target string. If not specified, SITL automatically started and used.")
+    
+    parser.add_argument( '--flag',
+                   help="vehicle connection target string.")
+    args = parser.parse_args()
+    hr = int(args.H)
+    flag=args.flag
+    print(flag)
+
+    API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFsX2lkIjoiY3JlZGVudGlhbHw5TGd3N21uU1lFZGw5QVVxem82eUp1eGJlQnlnIiwiYXBwbGljYXRpb25faWQiOiJhcHBsaWNhdGlvbnxBWDI4eG5rdDluYVdYWGNOYW03WmdUNjd6d3BBIiwib3JnYW5pemF0aW9uX2lkIjoiZGV2ZWxvcGVyfEx3RW5aeE1jeDBhOFlCVERQeDIyZ0NlRFF4V3kiLCJpYXQiOjE1OTgzNTczOTF9.s-W3dzKLfhDsRsr51mb8IilqkNRLeYLxj6PTlPrA134"
+    client_id = "70c6a951-9643-4f10-8fde-c46aa126b708"
 
     js = get_token_user(client_id, username, password)
     access_token = js['access_token']
@@ -58,25 +73,35 @@ if __name__ == '__main__':
     print("Aircrafts :", aircrafts)
     aircraft_id = aircrafts[0]["id"]
     print("Choosing aircraft: ", aircraft_id)
+    start_time=datetime.utcnow()
+   # start_time=start_time-5
+    start_time = start_time.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+    end_time=(datetime.utcnow()+timedelta(hours=hr)).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+    print(start_time)
+    print(end_time)
 
+
+
+    take_off_lat= vehicle.location.global_relative_frame.lat
+    take_off_lon= vehicle.location.global_relative_frame.lon
     data = {
-        "takeoff_latitude": 13.44166667,
-        "takeoff_longitude": 80.23194444,
+        "takeoff_latitude": take_off_lat,
+        "takeoff_longitude":take_off_lon,
         "pilot_id": pilot_id,
         "aircraft_id": aircraft_id,
-        "start_time": "2020-08-31T13:11:00.730Z",
-        "end_time":   "2020-08-31T14:10:42.000Z",
+        "start_time": start_time,
+        "end_time":   end_time,
         "max_altitude_agl": 90,
         "rulesets": ["ind_airmap_rules",
                      "ind_notam"],
         "buffer": 1,
-        "geometry": {"type": "Polygon", "coordinates": [[[80.23194444, 13.44166667],
-                                                         [80.23194444, 13.44266667],
-                                                         [80.23394444, 13.44266667],
-                                                         [80.23394444, 13.44166667],
-                                                         [80.23194444, 13.44166667]
-                                                         ]]
-                     }
+        "geometry": {"type": "Polygon", "coordinates": [[[ 80.23194444,13.44166667], 
+                                                         [ 80.23194444,13.44266667],
+                                                         [ 80.23394444,13.44266667],
+                                                         [ 80.23394444,13.44166667],
+                                                         [ 80.23194444,13.44166667]
+                                                        ]]
+                    }
     }
     print()
     print("\nCreating Flight plan for geometry", data["geometry"])
@@ -91,7 +116,7 @@ if __name__ == '__main__':
     # print(API_KEY)
 
     # print(flights.keys())
-    submit_plan = False
+    submit_plan = True
     flight_id = "flight|P58bXJB6eQWkqhg5YXgyA5Kyd0uoMK3ZZ3baXycQEXA49YxxP0"
     print()
     print("Submiting Flight Plan")
@@ -229,6 +254,5 @@ if __name__ == '__main__':
     end_comm(API_KEY, access_token, flight_id)
     end_flight(API_KEY,access_token,flight_id)
     print("Communication Ended")
-
 
 
